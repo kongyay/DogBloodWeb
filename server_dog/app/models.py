@@ -6,11 +6,13 @@ from mongoengine import StringField, ReferenceField, ListField, URLField, Embedd
 class DogData(Document):
     owner_name = StringField(default='', required=True)
     dog_name = StringField(default='', required=True)
+    dog_id = IntField(default=0, required=True, unique=True)
 
     def to_json(self):
         jsonObj = {}
         jsonObj["owner_name"] = self.owner_name
         jsonObj["dog_name"] = self.dog_name
+        jsonObj["dog_id"] = self.dog_id
         return jsonObj
 
 

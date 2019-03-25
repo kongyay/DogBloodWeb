@@ -29,11 +29,13 @@ SERVER
 ```
 cd server_dog
 virtual\Scripts\activate
-pip install -r requirements.txt
-python main.py
+pip install -r virtual/requirements.txt
+python app/main.py
 ```
 
 ### Compiles and hot-reloads for development
+
+CLIENT
 
 ```
 yarn run serve

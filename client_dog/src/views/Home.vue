@@ -1,18 +1,50 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang='pug'>
+  v-stepper(v-model='currentPage' vertical)
+    v-stepper-step(step='1', :complete='currentPage>1') Enter Information and Image
+    v-stepper-content(step='1')
+      Classify1()
+      v-btn(v-if='getFilename.length>0' color='primary', @click='SET_PAGE(2)' outline) Continue
+    v-stepper-step(step='2', :complete='currentPage>2') Set min and max radius
+    v-stepper-content(step='2')
+      Classify2()
+      v-btn(color='primary', @click='SET_PAGE(1)' outline) Back
+    v-stepper-step(step='3', :complete='currentPage>3') View the classified data
+    v-stepper-content(step='3')
+      Classify3()
+      v-btn(color='primary', @click='SET_PAGE(1)' outline) Back
+    v-btn(color='error', @click='SET_PAGE(1)' flat) Restart
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapGetters, mapMutations } from "vuex";
+import Classify1 from "../components/Classify1";
+import Classify2 from "../components/Classify2";
+import Classify3 from "../components/Classify3";
 
 export default {
-  name: 'home',
+  data() {
+    return {
+      page: 1
+    };
+  },
+  computed: {
+    ...mapGetters(["getCurrentPage", "getFilename"]),
+    currentPage: {
+      get: function() {
+        return this.getCurrentPage;
+      },
+      set: function(newVal) {
+        this.SET_PAGE(newVal);
+      }
+    }
+  },
+  methods: {
+    ...mapMutations(["SET_PAGE"])
+  },
   components: {
-    HelloWorld
+    Classify1,
+    Classify2,
+    Classify3
   }
-}
+};
 </script>

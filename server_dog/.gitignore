@@ -1,0 +1,7 @@
+/virtual/*
+!/virtual/requirements.txt
+
+*.pyc
+
+*.cfg
+!*_example.cfg

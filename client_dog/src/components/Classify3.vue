@@ -25,7 +25,6 @@ export default {
         }
       ],
       valid: true,
-      loading: false,
       waitState: "",
       errmsg: "",
       radius: [1, 100]

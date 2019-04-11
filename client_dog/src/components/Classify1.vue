@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       valid: true,
-
       ownerName: "",
       dogName: "",
       dogId: "",
@@ -70,9 +69,11 @@ export default {
       "SET_PAGE",
       "SET_FILENAME",
       "SET_IMAGE_URL",
+      "SET_DOGDATA",
       "START_LOADING",
-      "STOP_LOADING_SUCCESS",
-      "STOP_LOADING_FAIL"
+      "STOP_LOADING",
+      "LOADING_SUCCESS",
+      "LOADING_FAIL"
     ]),
     async validate() {
       if (this.$refs.form.validate()) {
@@ -85,6 +86,7 @@ export default {
         obj.ownerName = this.ownerName;
         obj.dogName = this.dogName;
         obj.dogId = this.dogId;
+        this.SET_DOGDATA(obj);
         obj.image = this.imageUrl;
         obj.imageName = this.imageName;
         console.log(obj);
@@ -98,10 +100,10 @@ export default {
           if ("error" in result.data) throw result.data.error;
           if ("filename" in result.data)
             this.SET_FILENAME(result.data.filename);
-          this.STOP_LOADING_SUCCESS();
+          this.LOADING_SUCCESS();
           this.SET_PAGE(2);
         } catch (e) {
-          this.STOP_LOADING_FAIL(e);
+          this.LOADING_FAIL(e);
         }
       }
     },

@@ -5,11 +5,11 @@
         span DOGBLOOD
         span.font-weight-light CLASSIFICATION
       v-spacer
-      v-btn(flat='', href='https://github.com/vuetifyjs/vuetify/releases/latest', target='_blank')
-        span.mr-2 v1.0
+      v-layout(row, style='max-width: 250px')
+        v-text-field(v-model='searchTxt' @keyup.enter="goSearch" @click:append='goSearch', placeholder='Search...', single-line, append-icon='search', hide-details)
     v-content
       router-view
-    v-dialog(v-model='getLoading', :persistent="getWaitState=='wait'", width='300')
+    v-dialog(v-model='loading', :persistent="getWaitState=='wait'", width='300')
       v-card(:color="getWaitState=='success' && 'light-green' || getWaitState=='fail' && 'amber' || 'primary' " , dark)
         v-card-text
             span(v-if="getWaitState=='wait'") รอแป๊บนึง..
@@ -19,18 +19,33 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "App",
   components: {},
   data() {
     return {
-      //
+      searchTxt: ""
     };
   },
   computed: {
-    ...mapGetters(["getLoading", "getWaitState", "getErrmsg"])
+    ...mapGetters(["getLoading", "getWaitState", "getErrmsg"]),
+    loading: {
+      get: function() {
+        return this.getLoading;
+      },
+      set: function(newVal) {
+        this.STOP_LOADING();
+      }
+    }
   },
-  methods: {}
+  methods: {
+    ...mapMutations(["STOP_LOADING"]),
+    ...mapActions(["search"]),
+    goSearch() {
+      console.log("search", this.searchTxt);
+      this.search(this.searchTxt);
+    }
+  }
 };
 </script>

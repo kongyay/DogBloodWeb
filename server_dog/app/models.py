@@ -18,11 +18,11 @@ class DogData(Document):
 
 class Record(Document):
     dog_data = ReferenceField(DogData, required=True)
-    classify_data = DictField(default={})
+    classify_data = ListField(DictField(), default=[])
 
     def to_json(self):
         jsonObj = {}
         jsonObj["dog_data"] = self.dog_data.to_json()
-        jsonObj["classify_data"] = self.classify_data or {}
+        jsonObj["classify_data"] = self.classify_data or []
 
         return jsonObj

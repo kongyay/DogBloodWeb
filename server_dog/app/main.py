@@ -1,4 +1,4 @@
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, render_template
 from flask_mongoengine import MongoEngine
 from models import DogData, Record
 from flask_cors import CORS
@@ -9,16 +9,23 @@ from application import Predict
 
 script_dir = os.path.dirname(__file__)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="./dist/static",
+            template_folder="./dist")
 app.config.from_pyfile('prod.cfg')
 CORS(app)
 db = MongoEngine(app)
 predictor = Predict()
 
 
-@app.route("/")
+@app.route("/hello")
 def hello():
     return 'Hello everyone !'
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return render_template("index.html")
 
 
 @app.route("/dog/get")

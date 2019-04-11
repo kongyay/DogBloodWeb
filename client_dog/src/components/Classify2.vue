@@ -79,11 +79,11 @@ export default {
         "Content-type": "application/json"
       };
       let obj = {};
-      obj.param1 = this.param1;
-      obj.param2 = this.param2;
-      obj.distance = this.distance;
-      obj.minradius = this.radius[0];
-      obj.maxradius = this.radius[1];
+      obj.param1 = parseFloat(this.param1);
+      obj.param2 = parseFloat(this.param2);
+      obj.distance = parseFloat(this.distance);
+      obj.minradius = parseFloat(this.radius[0]);
+      obj.maxradius = parseFloat(this.radius[1]);
       obj.imageName = this.getFilename;
       console.log(obj);
       try {
@@ -128,6 +128,15 @@ export default {
       } catch (e) {
         this.LOADING_FAIL(e);
       }
+    }
+  },
+  mounted() {
+    if (this.step === 2) {
+      this.param1 = 15;
+      this.param2 = 15;
+      this.distance = 55;
+      this.minradius = 50;
+      this.radius = [50, 67];
     }
   }
 };

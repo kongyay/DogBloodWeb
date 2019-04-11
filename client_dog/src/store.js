@@ -49,6 +49,7 @@ export default new Vuex.Store({
     },
     LOADING_SUCCESS: (state) => {
       state.waitState = 'success'
+      setTimeout(() => state.loading = false, 1000)
     },
     LOADING_FAIL: (state, payload) => {
       state.waitState = 'fail'

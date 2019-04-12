@@ -1,4 +1,4 @@
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for
 from flask_mongoengine import MongoEngine
 from models import DogData, Record
 from flask_cors import CORS
@@ -6,26 +6,19 @@ import os
 import json
 import base64
 from application import Predict
+import tensorflow as tf
 
 script_dir = os.path.dirname(__file__)
 
-app = Flask(__name__, static_folder="./dist/static",
-            template_folder="./dist")
+app = Flask(__name__)
 app.config.from_pyfile('prod.cfg')
 CORS(app)
 db = MongoEngine(app)
 predictor = Predict()
 
-
-@app.route("/hello")
+@app.route("/")
 def hello():
     return 'Hello everyone !'
-
-
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return render_template("index.html")
 
 
 @app.route("/dog/get")
@@ -114,7 +107,14 @@ def dog_confirm(step):
             return json.dumps({'image': fix_b64(image)}), 200
         elif step == 2:
             result = predictor.process4()
-
+            for i in range(len(result)):
+                result[i]['class'] = str(result[i]['class'])
+                result[i]['value'] = int(result[i]['value'])
+            print(result)
+            print(type(result))
+            print(type(result[0]))
+            print(type(result[0]['class']))
+            print(type(result[0]['value']))
             try:
                 dog = DogData.objects.get(dog_id=data['dogId'])
             except (Exception):
@@ -158,4 +158,4 @@ def fix_b64(text):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False,threaded=False)

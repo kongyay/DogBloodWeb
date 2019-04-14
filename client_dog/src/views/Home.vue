@@ -3,7 +3,7 @@
     v-flex(xs12 v-if='getSearchResult.length>0')
       h2 Dog: {{getSearchResult[0].dog_data.dog_name}} 
       | (id: {{getSearchResult[0].dog_data.dog_id}})
-      h3 Owner: {{getSearchResult[0].dog_data.dog_name}}
+      h3 Owner: {{getSearchResult[0].dog_data.owner_name}}
     v-divider.pa-1(v-if='getSearchResult.length>0')
     v-flex(xs12 v-for='(record,i) in getSearchResult' @key='i')
       h2 Record {{i+1}}

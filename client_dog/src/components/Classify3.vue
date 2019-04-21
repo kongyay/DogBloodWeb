@@ -1,5 +1,7 @@
 <template lang="pug">
   v-container
+    v-layout(row)
+      v-img.preview.elevation-3(:src='getImageUrl')
     v-layout(column align-space-around justify-center fill-height)
       v-flex()
         v-data-table.elevation-1(:headers='headers', :items='getResult')
@@ -31,7 +33,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getResult"])
+    ...mapGetters(["getResult","getImageUrl"])
   }
 };
 </script>

@@ -120,6 +120,8 @@ export default {
         if (this.step == 1) {
           this.imageUrl = result.data.image;
         } else if (this.step == 2) {
+          this.imageUrl = result.data[0].image;
+          result.data.shift();
           this.SET_RESULT(result.data);
         }
 

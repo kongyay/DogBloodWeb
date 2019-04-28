@@ -21,12 +21,14 @@ class DogData(Document):
 class Record(Document):
     dog_data = ReferenceField(DogData, required=True)
     classify_data = ListField(DictField(), default=[])
-    timestamp = DateTimeField(default=datetime.datetime.now)
+    image_path = StringField(default='', required=True)
+    timestamp = DateTimeField(required=True, default=datetime.datetime.now)
 
     def to_json(self):
         jsonObj = {}
         jsonObj["dog_data"] = self.dog_data.to_json()
         jsonObj["classify_data"] = self.classify_data or []
+        jsonObj["image_path"] = self.image_path
         jsonObj["timestamp"] = json.dumps(
             self.timestamp, default=json_util.default)
 

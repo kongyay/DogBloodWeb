@@ -51,7 +51,7 @@ def records_get():
 def records_find(id):
     try:
         dog = DogData.objects.get(dog_id=id)
-        records = Record.objects(dog_data=dog)
+        records = Record.objects(dog_data=dog).order_by('timestamp')
         result = list(map(lambda x: x.to_json(), records))
     except (Exception):
         return json.dumps({'error': 'Not Found!'}), 200
@@ -117,6 +117,20 @@ def dog_confirm(step):
                     'value': '222'
                 }
             ]
+
+            try:
+                dog = DogData.objects.get(dog_id=data['dogId'])
+            except (Exception):
+                print("New Dog")
+                dog = DogData(owner_name=data['ownerName'],
+                              dog_name=data['dogName'],
+                              dog_id=data['dogId'])
+                dog.save()
+
+            record = Record(dog_data=dog,
+                            classify_data=result,
+                            image_path='0_111.png')
+            record.save()
 
             return json.dumps(result), 200
 

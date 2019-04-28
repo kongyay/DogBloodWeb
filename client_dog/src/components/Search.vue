@@ -12,7 +12,7 @@
         v-flex(xs3)
           v-img.preview.elevation-3.ma-2(:src='record.image || "https://meredith.nhcrafts.org/wp-content/uploads/dog-placeholder.jpg"')
         v-flex(xs9)
-          h2 Record {{i+1}}
+          h2 Record {{i+1}} ({{record.timestamp}})
           v-data-table.elevation-1(:headers='headers', :items='record.classify_data' hide-actions)
             template(v-slot:items="props")
               tr(@click='SWITCH_VERIFY_RESULT(i)')

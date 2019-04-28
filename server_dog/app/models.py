@@ -29,7 +29,6 @@ class Record(Document):
         jsonObj["dog_data"] = self.dog_data.to_json()
         jsonObj["classify_data"] = self.classify_data or []
         jsonObj["image_path"] = self.image_path
-        jsonObj["timestamp"] = json.dumps(
-            self.timestamp, default=json_util.default)
+        jsonObj["timestamp"] = self.timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
         return jsonObj

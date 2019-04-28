@@ -12,7 +12,7 @@
     v-dialog(v-model='loading', :persistent="getWaitState=='wait'", width='300')
       v-card(:color="getWaitState=='success' && 'light-green' || getWaitState=='fail' && 'amber' || 'primary' " , dark)
         v-card-text
-            span(v-if="getWaitState=='wait'") รอแป๊บนึง..
+            span(v-if="getWaitState=='wait'") กรุณารอสักครู่..
             span(v-if="getWaitState=='success'") สำเร็จ !
             span(v-if="getWaitState=='fail'") ไม่สำเร็จ :( {{getErrmsg}}
             v-progress-linear.mb-0(:indeterminate="getWaitState=='wait'", color='white')
@@ -34,6 +34,7 @@ export default {
       get: function() {
         return this.getLoading;
       },
+      // eslint-disable-next-line
       set: function(newVal) {
         this.STOP_LOADING();
       }

@@ -4,24 +4,24 @@
       v-form(ref="form")
         v-container
           v-layout(row)
-            v-flex(xs12 md6)
+            v-flex(xs12 md1)
               | Owner Name
-            v-flex(xs12 md6)
+            v-flex(xs12 md11)
               v-text-field(v-model="ownerName" required :rules="ownerNameRules" label='Owner')
           v-layout(row)
-            v-flex(xs12 md6)
+            v-flex(xs12 md1)
               | Dog Name
-            v-flex(xs12 md6)
+            v-flex(xs12 md11)
               v-text-field(v-model="dogName" required :rules="dogNameRules" label='Dog')
           v-layout(row)
-            v-flex(xs12 md6)
+            v-flex(xs12 md1)
               | Dog ID
-            v-flex(xs12 md6)
+            v-flex(xs12 md11)
               v-text-field(v-model="dogId" required :rules="dogIdRules" label='ID')
           v-layout(row)
-            v-flex(xs12 md6)
+            v-flex(xs12 md1)
               | Image
-            v-flex(xs12 md6)
+            v-flex(xs12 md11)
               v-img.preview.elevation-3(:src='imageUrl' @click='pickFile')
               v-text-field(label='Select Image', @click='pickFile', v-model='imageName', prepend-icon='attach_file' required :rules='imageRules')
               input(type='file', style='display: none', ref='image', accept='image/*', @change='onFilePicked')
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {

@@ -1,6 +1,8 @@
 import json
+from bson import json_util
+import datetime
 from mongoengine import Document, EmbeddedDocument, connect
-from mongoengine import StringField, ReferenceField, ListField, URLField, EmbeddedDocumentField, EmbeddedDocumentListField, DictField, BooleanField, IntField
+from mongoengine import StringField, ReferenceField, ListField, URLField, EmbeddedDocumentField, EmbeddedDocumentListField, DictField, BooleanField, IntField, DateTimeField
 
 
 class DogData(Document):
@@ -19,10 +21,13 @@ class DogData(Document):
 class Record(Document):
     dog_data = ReferenceField(DogData, required=True)
     classify_data = ListField(DictField(), default=[])
+    timestamp = DateTimeField(default=datetime.datetime.now)
 
     def to_json(self):
         jsonObj = {}
         jsonObj["dog_data"] = self.dog_data.to_json()
         jsonObj["classify_data"] = self.classify_data or []
+        jsonObj["timestamp"] = json.dumps(
+            self.timestamp, default=json_util.default)
 
         return jsonObj

@@ -1,18 +1,10 @@
 <template lang='pug'>
   v-container
-    v-flex(xs12 v-if='getSearchResult.length>0')
-      h2 Dog: {{getSearchResult[0].dog_data.dog_name}} 
-      | (id: {{getSearchResult[0].dog_data.dog_id}})
-      h3 Owner: {{getSearchResult[0].dog_data.owner_name}}
-    v-divider.pa-1(v-if='getSearchResult.length>0')
-    v-flex(xs12 v-for='(record,i) in getSearchResult' @key='i')
-      h2 Record {{i+1}}
-      v-data-table.elevation-1(:headers='headers', :items='record.classify_data' hide-actions)
-        template(v-slot:items="props")
-          td {{ props.item.class }}
-          td.text-xs-right {{ props.item.value }}
+    //Search
+    search
     
-    v-divider.pa-1(v-if='getSearchResult.length>0')
+    // Main
+    
     v-stepper(v-model='currentPage' vertical)
       v-stepper-step(step='1', :complete='currentPage>1') Enter Information and Image
       v-stepper-content(step='1')
@@ -41,12 +33,17 @@ import { mapGetters, mapMutations } from "vuex";
 import Classify1 from "../components/Classify1";
 import Classify2 from "../components/Classify2";
 import Classify3 from "../components/Classify3";
+import Search from "../components/Search";
 
 export default {
   data() {
     return {
       page: 1,
       headers: [
+        {
+          text: "Verify",
+          value: "verify"
+        },
         {
           text: "Class",
           value: "class"
@@ -60,7 +57,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCurrentPage", "getFilename", "getSearchResult"]),
+    ...mapGetters(["getCurrentPage", "getFilename"]),
     currentPage: {
       get: function() {
         return this.getCurrentPage;
@@ -76,7 +73,8 @@ export default {
   components: {
     Classify1,
     Classify2,
-    Classify3
+    Classify3,
+    Search
   }
 };
 </script>

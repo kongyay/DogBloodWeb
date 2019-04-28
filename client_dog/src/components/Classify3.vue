@@ -8,6 +8,7 @@
           template(v-slot:items="props")
             td {{ props.item.class }}
             td.text-xs-right {{ props.item.value }}
+            
 </template>
 
 <script>
@@ -33,7 +34,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getResult","getImageUrl"])
+    ...mapGetters(["getResult", "getImageUrl"])
+  },
+  methods: {
+    ...mapMutations(["SET_VERIFY_RESULT"])
   }
 };
 </script>

@@ -7,12 +7,12 @@ export default new Vuex.Store({
   state: {
     currentPage: 1,
     filename: '',
-    imageUrl: "",
+    imageUrl: '',
     result: [],
     searchResult: [],
     loading: false,
-    waitState: "",
-    errmsg: "",
+    waitState: '',
+    errmsg: '',
     dogData: {
       ownerName: '',
       dogName: '',
@@ -35,32 +35,43 @@ export default new Vuex.Store({
       state.imageUrl = payload
     },
     SET_RESULT: (state, payload) => {
-      state.result = payload
+      state.result = payload.map(x =>
+        Object({
+          ...x,
+          verify: x.verify || false
+        })
+      )
+    },
+    SET_VERIFY_RESULT: (state, payload) => {
+      state.searchResult[payload.index].verify = payload.verify
+    },
+    SWITCH_VERIFY_RESULT: (state, payload) => {
+      state.searchResult[payload].verify = !state.searchResult[payload].verify
     },
     SET_SEARCH_RESULT: (state, payload) => {
       state.searchResult = payload
     },
-    START_LOADING: (state) => {
+    START_LOADING: state => {
       state.loading = true
       state.waitState = 'wait'
     },
-    STOP_LOADING: (state) => {
+    STOP_LOADING: state => {
       state.loading = false
     },
-    LOADING_SUCCESS: (state) => {
+    LOADING_SUCCESS: state => {
       state.waitState = 'success'
-      setTimeout(() => state.loading = false, 1000)
+      setTimeout(() => (state.loading = false), 1000)
     },
     LOADING_FAIL: (state, payload) => {
       state.waitState = 'fail'
       state.errmsg = payload
     },
-    RESTART: (state, payload) => {
+    RESTART: state => {
       state.currentPage = 1
       state.filename = ''
       state.imageUrl = ''
       state.result = []
-    },
+    }
   },
   actions: {
     async search({
@@ -73,10 +84,10 @@ export default new Vuex.Store({
 
       try {
         let result = await global.axios.get(
-          `${process.env.VUE_APP_API_URL}/record/find/${text}`,
-        );
-        console.log(result);
-        if ("error" in result.data) throw result.data.error
+          `${process.env.VUE_APP_API_URL}/record/find/${text}`
+        )
+        console.log(result)
+        if ('error' in result.data) throw result.data.error
         commit('SET_SEARCH_RESULT', result.data)
       } catch (e) {
         commit('START_LOADING')

@@ -55,7 +55,7 @@ export default {
       this.SWITCH_VERIFY_RESULT({index,classi})
     },
     print() {
-      let printWindow = window.open(
+      window.open(
         this.$router.resolve(
           {
             name: "print", 
@@ -63,7 +63,6 @@ export default {
           }).href,
           "Print Report",
           "width=595,height=842"); 
-      printWindow.print()
     }
   }
 }

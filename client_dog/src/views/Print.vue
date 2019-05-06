@@ -48,6 +48,7 @@ export default {
   mounted() {
     this.record = JSON.parse(this.$route.query.record)
     this.index = parseInt(this.$route.query.index)
+    setTimeout(() => window.print(),2000) 
   }
 }
 </script>

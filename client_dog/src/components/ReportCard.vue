@@ -59,7 +59,7 @@ export default {
         this.$router.resolve(
           {
             name: "print", 
-            query: {record: JSON.stringify(this.record), index:this.index}
+            query: {record: JSON.stringify({...this.record,image:null}), index:this.index}
           }).href,
           "Print Report",
           "width=595,height=842"); 

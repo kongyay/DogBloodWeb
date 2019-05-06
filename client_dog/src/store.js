@@ -43,10 +43,10 @@ export default new Vuex.Store({
       )
     },
     SET_VERIFY_RESULT: (state, payload) => {
-      state.searchResult[payload.index].verify = payload.verify
+      state.searchResult[payload.index].classify_data[payload.classi].verify = payload.verify
     },
     SWITCH_VERIFY_RESULT: (state, payload) => {
-      state.searchResult[payload].verify = !state.searchResult[payload].verify
+      state.searchResult[payload.index].classify_data[payload.classi].verify = !state.searchResult[payload.index].classify_data[payload.classi].verify
     },
     SET_SEARCH_RESULT: (state, payload) => {
       state.searchResult = payload

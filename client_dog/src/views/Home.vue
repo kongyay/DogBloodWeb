@@ -1,7 +1,7 @@
 <template lang='pug'>
   v-container
     //Search
-    search
+    search-result
     
     // Main
     
@@ -33,27 +33,12 @@ import { mapGetters, mapMutations } from "vuex";
 import Classify1 from "../components/Classify1";
 import Classify2 from "../components/Classify2";
 import Classify3 from "../components/Classify3";
-import Search from "../components/Search";
+import SearchResult from "../components/SearchResult";
 
 export default {
   data() {
     return {
-      page: 1,
-      headers: [
-        {
-          text: "Verify",
-          value: "verify"
-        },
-        {
-          text: "Class",
-          value: "class"
-        },
-        {
-          text: "Percent (%)",
-          align: "right",
-          value: "value"
-        }
-      ]
+      page: 1
     };
   },
   computed: {
@@ -74,7 +59,7 @@ export default {
     Classify1,
     Classify2,
     Classify3,
-    Search
+    SearchResult
   }
 };
 </script>

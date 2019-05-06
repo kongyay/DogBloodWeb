@@ -6,7 +6,7 @@
         span.font-weight-light CLASSIFICATION
       v-spacer
       v-layout(row, style='max-width: 250px')
-        v-text-field(v-model='searchTxt' @keyup.enter="goSearch" @click:append='goSearch', placeholder='Search...', single-line, append-icon='search', hide-details)
+        v-text-field(v-if='$route.path!=="/print"' v-model='searchTxt' @keyup.enter="goSearch" @click:append='goSearch', placeholder='Search...', single-line, append-icon='search', hide-details)
     v-content
       router-view
     v-dialog(v-model='loading', :persistent="getWaitState=='wait'", width='300')
